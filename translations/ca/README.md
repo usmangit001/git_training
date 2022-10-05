@@ -22,9 +22,9 @@ Comencem!
 > t'ajudarà a comprendre totes les altres funcions de Git detallades.
 
 ---
-- [Aprén els conceptes de `git`, no les ordres](#apren-els-conceptes-de-git-no-les-ordres)
-  - [Visió general](#visio-general)
-  - [Obtindre un depòsit _Remot_ (clone)](#obtindre-un-deposit-remot)
+- [Aprén els conceptes de `git`, no les ordres](#aprén-els-conceptes-de-git-no-les-ordres)
+  - [Visió general](#visió-general)
+  - [Obtindre un depòsit _Remot_ (clone)](#obtindre-un-depòsit-remot)
   - [Afegir noves coses (add)](#afegit-noves-coses)
   - [Fer canvis (commit)](#fer-canvis)
   - [Branques](#branques)
@@ -35,7 +35,7 @@ Comencem!
   - [Rebase](#rebase)
     - [Resolució de conflictes](#resolent-conflictes-1)
   - [Actualització de l'_Entorn de Desenvolupament_ amb canvis remots](#actualitzacio-de-lentorn-de-desenvolupament-amb-canvis-remots)
-   - [Obtindre_ canvis (fetch)](#obtindre-canvis)
+   - [Obtindre canvis (fetch)](#obtindre-canvis)
    - [Incorporar canvis (pull)](#obtindre-i-incorporar-canvis)
    - [Guardar canvis (stash)](#guardar-canvis-stash)
    - [Incorporar canvis amb conflictes](#incorporar-canvis-amb-conflictes)
@@ -52,12 +52,10 @@ Comencem!
 
 A la imatge següent, veieu quatre caixes. Un d’elles es troba sola, mentre que les altres tres s’agrupen en el que anomenaré el vostre _Entorn de Desenvolupament_.
 
-![git components](img/components.png)
+![git components](../../img/components.png)
 
 Començarem amb el que es troba per sol. El _Desòsit Remot o Remote Repository_ és on envieu els vostres canvis quan vulgueu compartir-los amb altres persones
 i d'on obteniu els canvis. Si heu utilitzat altres sistemes de control de versions, no hi ha res interessant.
-
-The _Development Environment_ is what you have on your local machine. 
 
 L’_Entorn de Desenvolupament_ és el que teniu a la vostra màquina local.
 
@@ -73,9 +71,7 @@ No cal crear una carpeta nova per al vostre _Entorn de Desenvolupament_
 
 Ara volem agafar un _Depòsit Remot_ i posar el que hi ha a la vostra màquina.
 
-I'd suggest we use this one ([https://github.com/UnseenWizzard/git_training.git](https://github.com/UnseenWizzard/git_training.git) if you're not already reading this on github).
-
-Suggeriria que utilitzem aquest ([https://github.com/unseenwizzard/git_training.git Alan(https://github.com/unseenwizzard/git_training.git)
+Suggeriria que utilitzem aquest ([https://github.com/unseenwizzard/git_training.git](https://github.com/unseenwizzard/git_training.git)
 si no esteu llegint açò a GitHub encara).
 
 > Per fer-ho, pots utilitzar `git clone https://@github.com/Unseenwizzard/git_training.git`
@@ -90,20 +86,14 @@ Ara que teniu una còpia del meu _Depòsit Remot_, és hora de posar-la a la vos
 
 Per això, utilitzem `git clone https://github.com/{EL VOSTRE NOM D'USUARI}/git_training.git`
 
-As you can see in the diagram below, this copies the _Remote Repository_ into two places, your _Working Directory_ and the _Local Repository_. 
-
 Com es pot veure al diagrama següent, això copia el _Deòsit Remot_ en dos llocs, el vostre _Direcotri de Treball_ i el _Depòsit Local_.
-
-Now you see how git is _distributed_ version control. The _Local Repository_ is a copy of the _Remote_ one, and acts just like it. The only difference is that you don't share it with anyone. 
 
 Ara veieu com Git és un control de la versions _distribuït_. El _Depòsit Local_ és una còpia del _Remote_, i actua de la mateixa manera.
 L’única diferència és que no el compartiu amb ningú.
 
-What `git clone` also does, is create a new folder wherever you called it. There should be a `git_training` folder now. Open it. 
-
 El que també fa `git clone` és crear una carpeta nova allà on el vau cridar. Hi hauria d'haver una carpeta `git_training`. Obri-la.
 
-![Cloning the remote repo](img/clone.png)
+![Cloning the remote repo](../../img/clone.png)
 
 
 ## Afegir noves coses (add)
