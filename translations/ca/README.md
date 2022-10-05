@@ -25,15 +25,15 @@ Comencem!
 - [Aprén els conceptes de `git`, no les ordres](#aprén-els-conceptes-de-git-no-les-ordres)
   - [Visió general](#visió-general)
   - [Obtindre un depòsit _Remot_ (clone)](#obtindre-un-depòsit-remot)
-  - [Afegir noves coses (add)](#afegit-noves-coses)
-  - [Fer canvis (commit)](#fer-canvis)
+  - [Afegint noves coses](#afegint-noves-coses)
+  - [Fent canvis](#fent-canvis)
   - [Branques](#branques)
   - [Fusionar (merge)](#fusionar)
-    - [Fusió directa](#fusio-directa)
-    - [Fusió de diferents branques](#fusio-de-diferents-branques)
-    - [Resolució de conflictes](#resolent-conflictes)
+    - [Fusió directa](#fusió-directa)
+    - [Fusió de diferents branques](#fusió-de-diferents-branques)
+    - [Resolució de conflictes](#resolució-de-conflictes)
   - [Rebase](#rebase)
-    - [Resolució de conflictes](#resolent-conflictes-1)
+    - [Resolució de conflictes](#resolució-de-conflictes-1)
   - [Actualització de l'_Entorn de Desenvolupament_ amb canvis remots](#actualitzacio-de-lentorn-de-desenvolupament-amb-canvis-remots)
    - [Obtindre canvis (fetch)](#obtindre-canvis)
    - [Incorporar canvis (pull)](#obtindre-i-incorporar-canvis)
@@ -64,8 +64,7 @@ Aprendrem més sobre aquells quan comencem a utilitzar Git.
 
 Trieu un lloc on vulgueu posar el vostre _Entorn de Desenvolupament_.
 
-Només cal que aneu a la vostra carpeta d'inici o allà on vulgueu posar els vostres projectes.
-No cal crear una carpeta nova per al vostre _Entorn de Desenvolupament_
+Només cal que aneu a la vostra carpeta d'inici o allà on vulgueu posar els vostres projectes. No cal crear una carpeta nova per al vostre _Entorn de Desenvolupament_
 
 ## Obtindre un depòsit _Remot_ (clone)
 
@@ -77,7 +76,7 @@ si no esteu llegint açò a GitHub encara).
 > Per fer-ho, pots utilitzar `git clone https://@github.com/Unseenwizzard/git_training.git`
 > 
 > But as following this tutorial will need you to get the changes you make in your _Dev Environment_ back to the _Remote Repository_, and github doesn't just allow anyone to do that to anyone's repo, you'll best create a _fork_ of it right now. There's a button to do that on the top right of this page. 
-
+>
 > Però, a mesura que seguiu aquest tutorial, necessitareu afegir els canvis que feu al vostre
 > _Entorn de Desenvolupament_ de nou al _Repositori Remot_ i GitHub no deixa a qualsevol persona
 > modificar el depòsit de qualsevol persona. El millor seria crear un _fork_. Hi ha un botó per fer-ho a la part superior dreta d'aquesta pàgina.
@@ -96,4 +95,54 @@ El que també fa `git clone` és crear una carpeta nova allà on el vau cridar. 
 ![Cloning the remote repo](../../img/clone.png)
 
 
-## Afegir noves coses (add)
+## Afegint noves coses
+
+Algú ja ha posat un fitxer anomenat `Alice.txt` al _Depòsit Remot_.
+Éstà un poc solitari allí, així que creem un fitxer nou i anomenem-lo `bob.txt`.
+
+El que has acabat de fer és afegir el fitxer al vostre _Directori de Treball_
+Hi ha dos tipus de fitxers _Directori de Treball_:
+Fitxers _localitzats (tracked)_ que Git coneix i
+_no localitzats (untracked)_ fitxers que Git no coneix (encara).
+
+Per veure què passa al vostre _Directori de Treball_ pots executar
+`git status`, que et dirà en quina branca esteu, si el vostre _Depòsit Local_
+és diferent del _remot_ i l'estat de fitxers _tracked_ i _untracked_.
+
+Veureu que `bob.txt` està untracked i, fins i tot, `git status` et diu
+com canviar-ho. A la imatge següent, podeu veure què passa quan seguiu
+els consells i executeu `git add bob.txt`: heu afegit el fitxer a
+l'_Àrea d'Assaig o Staging Area_, on recopileu tots els canvis que
+voleu fer al _depòsit_.
+
+![Afegint canvis a l’àrea d’assaig](../../img/add.png)
+
+Quan hàgeu afegit tots els canvis (que ara mateix només està Bob),
+esteu preparats per a _fer canvis o commit_ el que heu fet al _Depòsit Local_.
+
+Els canvis recopilats que fas (_commit_) són un tros de treball significatiu,
+de manera que quan ara executeu `git commit` un editor de text s'obrirà i
+et permetrà escriure un missatge dient tot el que has fet.
+Quan guardeu i tanqueu el fitxer de missatges, el vostre _commit_ s’afegeix
+al _Depòsit Local_.
+
+![Fent canvis al depòsit local](../../img/commit.png)
+
+També podeu afegir el vostre missatge de _commit_ a la línia d’ordres
+si crideu a `git commit` així:` git commit -m "afegeix bob" `.
+Però perquè voleu escriure [bons missatges de commit](https://chris.beams.io/posts/git-commit/)
+realment hauríeu de prendre-vos el vostre temps i utilitzar l’editor.
+
+Ara els vostres canvis es troben al vostre dipòsit local,
+que és un bon lloc perquè estiguen sempre que ningú més els necessite
+o encara no estigueu preparats per compartir-los.
+
+Per tal de compartir els vostres canvis amb el _Depòsti Remot_,
+heu de enviar-los amb l'ordre `git push`.
+
+![Pushing repositori local](../../img/push.png)
+
+Una vegada executeu `git push`, els canvis s'enviaran al _Depòsit Remot_.
+Al diagrama següent, veieu l'estat després del vostre `push`.
+
+![Estat de tots els components despres de push](../../img/after_push.png)
