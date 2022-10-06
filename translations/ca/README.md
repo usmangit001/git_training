@@ -146,3 +146,73 @@ Una vegada executeu `git push`, els canvis s'enviaran al _Depòsit Remot_.
 Al diagrama següent, veieu l'estat després del vostre `push`.
 
 ![Estat de tots els components despres de push](../../img/after_push.png)
+
+
+## Fent canvis
+Fins ara només hem afegit un fitxer nou. Evidentment, la part més interessant
+del control de versions és la modificació de fitxers.
+
+Fes una ullada a `Alice.txt`.
+
+Conté algun text, però `Bob.txt` no, així que anem a modificar-lo i posar-hi
+`Hi!! I'm Bob, I'm new here.`
+
+Si executes `git status`, voràs que `Bob.txt` està _modified_.
+
+En aquest estat, els canvis només es troben al teu _Directori de Treball_.
+
+Si vols veure què ha canviat al teu _Direcoti de Treball_,
+pots executar `git diff` i ara voràs això:
+
+```Diff
+diff --git a/Bob.txt b/Bob.txt
+index e69de29..3ed0e1b 100644
+--- a/Bob.txt
++++ b/Bob.txt
+@@ -0,0 +1 @@
++Hi!! I'm Bob. I'm new here.
+```
+
+Segueix endavant i executa `git add Bob.txt` com has fet abans.
+Com sabem, això mou els canvis a l'_Àrea d'Assaig_.
+
+Volem veure els canvis que acabem d'afegir (_stated_), així que tornem a
+mostrar la diferència amb `git diff`! Veureu que aquesta vegada l'eixida
+està buida. Això succeeix perquè `git diff` funciona només en els canvis al
+teu _Directori de Treball_.
+
+To show what changes are already_staged_, we can use `git diff --staged`
+and we'll see the same diff output as before. 
+
+Per mostrar quins canvis són ja s'han afegit (_staged_), podem utilitzar
+`git diff --staged` i veurem les mateixes diferències que abans.
+
+I just noticed that we put two exclamation marks after the 'Hi'.
+I don't like that, so lets change `Bob.txt` again, so that it's just 'Hi!' 
+
+Acabe d'adonar-me que vam hem posat dos signes d'exclamació després de 'Hola'.
+No m'agrada, així que tornem a canviar `Bob.txt`, de manera que només siga "Hola!".
+
+If we now run `git status` we'll see that there are two changes: the one we already _staged_ where we added text, and the one we just made, which is still only in the working directory. 
+
+Si ara executem `git status`, veurem que hi ha dos canvis:
+el que ja hem afegit (_stated_) on hem afegit text, i el que acabem de fer,
+que encara només es troba al directori de treball.
+
+We can have a look at the `git diff` between the _Working Directory_ and what
+we've already moved to the _Staging Area_, to show what has changed since
+we last felt ready to _stage_ our changes for a _commit_. 
+
+Podem fer una ullada a la `git dif` entre el _Directori de Treball_ i el que
+ja haviem traslladat a l'_Àrea d'Assaig_, per mostrar el que ha canviat des que
+vam afegir per última vegada (_stage_) i els nostres canvis per fer un _commit_.
+
+```Diff
+diff --git a/Bob.txt b/Bob.txt
+index 8eb57c4..3ed0e1b 100644
+--- a/Bob.txt
++++ b/Bob.txt
+@@ -1 +1 @@
+-Hi!! I'm Bob. I'm new here.
++Hi! I'm Bob. I'm new here.
+```
