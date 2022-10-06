@@ -181,27 +181,15 @@ mostrar la diferència amb `git diff`! Veureu que aquesta vegada l'eixida
 està buida. Això succeeix perquè `git diff` funciona només en els canvis al
 teu _Directori de Treball_.
 
-To show what changes are already_staged_, we can use `git diff --staged`
-and we'll see the same diff output as before. 
-
 Per mostrar quins canvis són ja s'han afegit (_staged_), podem utilitzar
 `git diff --staged` i veurem les mateixes diferències que abans.
-
-I just noticed that we put two exclamation marks after the 'Hi'.
-I don't like that, so lets change `Bob.txt` again, so that it's just 'Hi!' 
 
 Acabe d'adonar-me que vam hem posat dos signes d'exclamació després de 'Hola'.
 No m'agrada, així que tornem a canviar `Bob.txt`, de manera que només siga "Hola!".
 
-If we now run `git status` we'll see that there are two changes: the one we already _staged_ where we added text, and the one we just made, which is still only in the working directory. 
-
 Si ara executem `git status`, veurem que hi ha dos canvis:
 el que ja hem afegit (_stated_) on hem afegit text, i el que acabem de fer,
 que encara només es troba al directori de treball.
-
-We can have a look at the `git diff` between the _Working Directory_ and what
-we've already moved to the _Staging Area_, to show what has changed since
-we last felt ready to _stage_ our changes for a _commit_. 
 
 Podem fer una ullada a la `git dif` entre el _Directori de Treball_ i el que
 ja haviem traslladat a l'_Àrea d'Assaig_, per mostrar el que ha canviat des que
@@ -215,4 +203,57 @@ index 8eb57c4..3ed0e1b 100644
 @@ -1 +1 @@
 -Hi!! I'm Bob. I'm new here.
 +Hi! I'm Bob. I'm new here.
+```
+
+Com que el canvi és el que volíem fer, anem a afegir l’estat actual del fitxer
+mitjançant `git add Bob.txt`
+
+Ara estem preparats per _cometre_ `commit` el que acabem de fer.
+Executem `git commit -m "Add text to Bob"` perquè per a un canvi tan xicotet
+escriure una línia seria suficient.
+
+Com sabem, els canvis es troben ara al _Depòsit local_.
+
+Encara podríem saber quin canvi ens acabem de _cometre (commit)_
+i què hi havia abans.
+
+Podem fer-ho comparant els «commits».
+
+Tots els «commits» de Git tenen un hash únic pel qual es referèncien.
+
+Si fem una ullada al `git log`, no només veurem una llista de tots
+els «commits» amb el seu _hash_, així com l'_Autor_ i la _Data_, sinó també
+veurem l'estat del _Depòsit Local_ i la última informacó local sobre les 
+_branques remotes_.
+
+Ara mateix, el `git log` és una cosa així:
+
+```ShellSession
+commit 87a4ad48d55e5280aa608cd79e8bce5e13f318dc (HEAD -> master)
+Author: {YOU} <{YOUR EMAIL}>
+Date:   Sun Jan 27 14:02:48 2019 +0100
+
+    Add text to Bob
+
+commit 8af2ff2a8f7c51e2e52402ecb7332aec39ed540e (origin/master, origin/HEAD)
+Author: {YOU} <{YOUR EMAIL}>
+Date:   Sun Jan 27 13:35:41 2019 +0100
+
+    Add Bob
+
+commit 71a6a9b299b21e68f9b0c61247379432a0b6007c 
+Author: UnseenWizzard <nicola.riedmann@live.de>
+Date:   Fri Jan 25 20:06:57 2019 +0100
+
+    Add Alice
+
+commit ddb869a0c154f6798f0caae567074aecdfa58c46
+Author: Nico Riedmann <UnseenWizzard@users.noreply.github.com>
+Date:   Fri Jan 25 19:25:23 2019 +0100
+
+    Add Tutorial Text
+
+      Changes to the tutorial are all squashed into this commit on master, to keep the log free of clutter that distracts from the tutorial
+
+      See the tutorial_wip branch for the actual commit history
 ```
