@@ -24,7 +24,7 @@ Comencem!
 ---
 - [Aprén els conceptes de `git`, no les ordres](#aprén-els-conceptes-de-git-no-les-ordres)
   - [Visió general](#visió-general)
-  - [Obtindre un depòsit _Remot_ (clone)](#obtindre-un-depòsit-remot)
+  - [Obtindre un repositori _Remot_ (clone)](#obtindre-un-repositori-remot)
   - [Afegint noves coses](#afegint-noves-coses)
   - [Fent canvis](#fent-canvis)
   - [Branques](#branques)
@@ -59,16 +59,16 @@ i d'on obteniu els canvis. Si heu utilitzat altres sistemes de control de versio
 
 L’_Entorn de Desenvolupament_ és el que teniu a la vostra màquina local.
 
-Les tres parts d’aquest són el vostre _Directori de Treball o Working Directory_, l’_Àrea d'Assaig o Staging Àrea_ i el _Depòsit Local_.
+Les tres parts d’aquest són el vostre _Directori de Treball o Working Directory_, l’_Àrea de Preparació o Staging Àrea_ i el _Repositori Local_.
 Aprendrem més sobre aquells quan comencem a utilitzar Git.
 
 Trieu un lloc on vulgueu posar el vostre _Entorn de Desenvolupament_.
 
 Només cal que aneu a la vostra carpeta d'inici o allà on vulgueu posar els vostres projectes. No cal crear una carpeta nova per al vostre _Entorn de Desenvolupament_
 
-## Obtindre un depòsit _Remot_ (clone)
+## Obtindre un repositori _Remot_ (clone)
 
-Ara volem agafar un _Depòsit Remot_ i posar el que hi ha a la vostra màquina.
+Ara volem agafar un _Repositori Remot_ i posar el que hi ha a la vostra màquina.
 
 Suggeriria que utilitzem aquest ([https://github.com/unseenwizzard/git_training.git](https://github.com/unseenwizzard/git_training.git)
 si no esteu llegint açò a GitHub encara).
@@ -79,15 +79,15 @@ si no esteu llegint açò a GitHub encara).
 >
 > Però, a mesura que seguiu aquest tutorial, necessitareu afegir els canvis que feu al vostre
 > _Entorn de Desenvolupament_ de nou al _Repositori Remot_ i GitHub no deixa a qualsevol persona
-> modificar el depòsit de qualsevol persona. El millor seria crear un _fork_. Hi ha un botó per fer-ho a la part superior dreta d'aquesta pàgina.
+> modificar el repositori de qualsevol persona. El millor seria crear un _fork_. Hi ha un botó per fer-ho a la part superior dreta d'aquesta pàgina.
 
-Ara que teniu una còpia del meu _Depòsit Remot_, és hora de posar-la a la vostra màquina.
+Ara que teniu una còpia del meu _Repositori Remot_, és hora de posar-la a la vostra màquina.
 
 Per això, utilitzem `git clone https://github.com/{EL VOSTRE NOM D'USUARI}/git_training.git`
 
-Com es pot veure al diagrama següent, això copia el _Deòsit Remot_ en dos llocs, el vostre _Direcotri de Treball_ i el _Depòsit Local_.
+Com es pot veure al diagrama següent, això copia el _Deòsit Remot_ en dos llocs, el vostre _Direcotri de Treball_ i el _Repositori Local_.
 
-Ara veieu com Git és un control de la versions _distribuït_. El _Depòsit Local_ és una còpia del _Remote_, i actua de la mateixa manera.
+Ara veieu com Git és un control de la versions _distribuït_. El _Repositori Local_ és una còpia del _Remote_, i actua de la mateixa manera.
 L’única diferència és que no el compartiu amb ningú.
 
 El que també fa `git clone` és crear una carpeta nova allà on el vau cridar. Hi hauria d'haver una carpeta `git_training`. Obri-la.
@@ -97,7 +97,7 @@ El que també fa `git clone` és crear una carpeta nova allà on el vau cridar. 
 
 ## Afegint noves coses
 
-Algú ja ha posat un fitxer anomenat `Alice.txt` al _Depòsit Remot_.
+Algú ja ha posat un fitxer anomenat `Alice.txt` al _Repositori Remot_.
 Éstà un poc solitari allí, així que creem un fitxer nou i anomenem-lo `bob.txt`.
 
 El que has acabat de fer és afegir el fitxer al vostre _Directori de Treball_
@@ -106,27 +106,27 @@ Fitxers _localitzats (tracked)_ que Git coneix i
 _no localitzats (untracked)_ fitxers que Git no coneix (encara).
 
 Per veure què passa al vostre _Directori de Treball_ pots executar
-`git status`, que et dirà en quina branca esteu, si el vostre _Depòsit Local_
+`git status`, que et dirà en quina branca esteu, si el vostre _Repositori Local_
 és diferent del _remot_ i l'estat de fitxers _tracked_ i _untracked_.
 
 Veureu que `bob.txt` està untracked i, fins i tot, `git status` et diu
 com canviar-ho. A la imatge següent, podeu veure què passa quan seguiu
 els consells i executeu `git add bob.txt`: heu afegit el fitxer a
-l'_Àrea d'Assaig o Staging Area_, on recopileu tots els canvis que
-voleu fer al _depòsit_.
+l'_Àrea de Preparació o Staging Area_, on recopileu tots els canvis que
+voleu fer al _repositori_.
 
 ![Afegint canvis a l’àrea d’assaig](../../img/add.png)
 
 Quan hàgeu afegit tots els canvis (que ara mateix només està Bob),
-esteu preparats per a _fer canvis o commit_ el que heu fet al _Depòsit Local_.
+esteu preparats per a _fer canvis o commit_ el que heu fet al _Repositori Local_.
 
 Els canvis recopilats que fas (_commit_) són un tros de treball significatiu,
 de manera que quan ara executeu `git commit` un editor de text s'obrirà i
 et permetrà escriure un missatge dient tot el que has fet.
 Quan guardeu i tanqueu el fitxer de missatges, el vostre _commit_ s’afegeix
-al _Depòsit Local_.
+al _Repositori Local_.
 
-![Fent canvis al depòsit local](../../img/commit.png)
+![Fent canvis al repositori local](../../img/commit.png)
 
 També podeu afegir el vostre missatge de _commit_ a la línia d’ordres
 si crideu a `git commit` així:` git commit -m "afegeix bob" `.
@@ -142,7 +142,7 @@ heu de enviar-los amb l'ordre `git push`.
 
 ![Pushing repositori local](../../img/push.png)
 
-Una vegada executeu `git push`, els canvis s'enviaran al _Depòsit Remot_.
+Una vegada executeu `git push`, els canvis s'enviaran al _Repositori Remot_.
 Al diagrama següent, veieu l'estat després del vostre `push`.
 
 ![Estat de tots els components despres de push](../../img/after_push.png)
@@ -174,7 +174,7 @@ index e69de29..3ed0e1b 100644
 ```
 
 Segueix endavant i executa `git add Bob.txt` com has fet abans.
-Com sabem, això mou els canvis a l'_Àrea d'Assaig_.
+Com sabem, això mou els canvis a l'_Àrea de Preparació_.
 
 Volem veure els canvis que acabem d'afegir (_stated_), així que tornem a
 mostrar la diferència amb `git diff`! Veureu que aquesta vegada l'eixida
@@ -192,7 +192,7 @@ el que ja hem afegit (_stated_) on hem afegit text, i el que acabem de fer,
 que encara només es troba al directori de treball.
 
 Podem fer una ullada a la `git dif` entre el _Directori de Treball_ i el que
-ja haviem traslladat a l'_Àrea d'Assaig_, per mostrar el que ha canviat des que
+ja haviem traslladat a l'_Àrea de Preparació_, per mostrar el que ha canviat des que
 vam afegir per última vegada (_stage_) i els nostres canvis per fer un _commit_.
 
 ```Diff
@@ -212,7 +212,7 @@ Ara estem preparats per _cometre_ `commit` el que acabem de fer.
 Executem `git commit -m "Add text to Bob"` perquè per a un canvi tan xicotet
 escriure una línia seria suficient.
 
-Com sabem, els canvis es troben ara al _Depòsit local_.
+Com sabem, els canvis es troben ara al _Repositori local_.
 
 Encara podríem saber quin canvi ens acabem de _cometre (commit)_
 i què hi havia abans.
@@ -223,7 +223,7 @@ Tots els «commits» de Git tenen un hash únic pel qual es referèncien.
 
 Si fem una ullada al `git log`, no només veurem una llista de tots
 els «commits» amb el seu _hash_, així com l'_Autor_ i la _Data_, sinó també
-veurem l'estat del _Depòsit Local_ i la última informacó local sobre les 
+veurem l'estat del _Repositori Local_ i la última informacó local sobre les 
 _branques remotes_.
 
 Ara mateix, el `git log` és una cosa així:
