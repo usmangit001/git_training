@@ -257,3 +257,27 @@ Date:   Fri Jan 25 19:25:23 2019 +0100
 
       See the tutorial_wip branch for the actual commit history
 ```
+
+Ací podem vore algunes coses interessants:
+* Els dos primers «commits» estan fets per mi.
+* El teu commit inicial on vas afegir Bob és el _HEAD_ actual de la branca _master_ en el _Repositori Remot_.
+  Tornarem a fixar-nos amb això quan parlem sobre branques i obtindre canvis remots.
+* L'últim «commit» en el _Repositori Local_ és el que acabem de fer, i ara podem veure el seu «hash».
+
+> Fixa't que el «commit hash» serà diferent en el teu cas. Si vols averiguar com git obté aquests ID,
+> pots consultar [aquest article interessant](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html).
+
+Per comparar aquest «commit» amb algun anterior, podem fer `git diff <commit>^!` (on `^!` indica a git que
+compare el «commit» amb el que s'ha realitzat just abans que aquest). En aquest cas, executariem
+`git diff 87a4ad48d55e5280aa608cd79e8bce5e13f318dc^!`.
+
+També podem fer 
+`git diff 8af2ff2a8f7c51e2e52402ecb7332aec39ed540e 87a4ad48d55e5280aa608cd79e8bce5e13f318dc`
+per obtindre el mateix resultat i, en general, per comparar qualsevol parell de «commits».
+El format és `git diff <des de commit> <a commit>`, així que el nou «commit» aniria en segon lloc.
+
+El següent diagrama pots veure les diferents etapes d'un canvi i l'ordre `diff` corresponent.
+
+![States of a change an related diff commands](../../img/diffs.png)
+
+Ara que hem comprovat que hem fet el canvi que voliem, podem publicar els canvis `git push`.
