@@ -281,3 +281,40 @@ El següent diagrama pots veure les diferents etapes d'un canvi i l'ordre `diff`
 ![States of a change an related diff commands](../../img/diffs.png)
 
 Ara que hem comprovat que hem fet el canvi que voliem, podem publicar els canvis `git push`.
+
+## Branques
+
+Una altra cosa que fa que Git siga fantàstic, és que treballar
+amb branques és una part realment fàcil i integral de la manera
+de treballar amb Git.
+
+De fet, hem estat treballant en una branca des de que hem començat.
+
+Quan hem clonat (`clone`) el _Repositori Remot_ el nostre
+_Entorn de Desenvolupament_ comença automàticament a la branca principal
+del repositori, és a dir, _master_.
+
+La majoria de fluxos de treball amb git inclouen fer els canvis en un
+_branca_, abans de fusionar-los de nou a a la branca _master_.
+
+Normalment treballaràs en una _branca_ pròpia fins que
+no hàges acabat i confies que els canvis realitzats, que després
+es fusionaran a la branca _master_.
+
+> Molts gestors de repositoris Git com _GitLab_ i _GitHub_ també permeten
+> que les branques estiguen protegides (_protected_), cosa que significa que
+> no tothom pot fer modificacions en aquestes branques.
+> Normalment la branca principal _master_ està protegida de manera predeterminada.
+
+No et preocupes, tornarem a totes aquestes coses amb
+més detall quan les necessitem.
+
+Ara mateix volem crear una branca per fer alguns canvis.
+Potser només voleu provar alguna cosa pel vostre compte i
+no embolicar l'estat de treball a la vostra branca _master_,
+o no teniu permís per publicar (`push`) a la branca _master_.
+
+Les branques existeixen al _Repositori Local_ i al _Repositori Remot_.
+Quan creeu una nova branca, el contingut de les serà una còpia de
+l’estat actual de l'últim «commit» de qualsevol branca que
+esteu treballant actualment.
