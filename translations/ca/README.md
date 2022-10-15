@@ -318,3 +318,47 @@ Les branques existeixen al _Repositori Local_ i al _Repositori Remot_.
 Quan creeu una nova branca, el contingut de les serà una còpia de
 l’estat actual de l'últim «commit» de qualsevol branca que
 esteu treballant actualment.
+
+Fem algun canvi a Alice.txt! Què tal si posem un text a la segona línia?
+
+Volem compartir aquest canvi, però no posar-lo la branca _master_ immediatament,
+així que creem una branca amb `git branch <branch name>`.
+
+Per crear una branca nova anomenada `change_alice`, podem executar
+`git branch change_alice`.
+
+Aquesta ordre afegeix la nova branca al _Repositori Local_.
+
+El _Directori de Treball_ i l'_Àrea de Preparació_ no es preocupen realment
+per les branques, sempre que feu un `commit` es realitzara a la branca en la qual
+esteu actualment.
+
+Podeu pensar en les branques en git com a punters,
+que apunten a una sèrie de «commits». Quan feu un `commit`,
+afegiu els canvis on esteu apuntant actualment.
+
+Al afegir una branca, no et porta directament a aquesta, només crea el punter.
+De fet, l'estat en el que es troba el teu _Repositori Local_ es pot veure
+com un altre punter, anomenat _HEAD_, que apunta a quina branca i «commit»
+et trobes actualment.
+
+Si això pareix complicat, esperem que els diagrames següents ajuden
+a aclarir un poc les coses:
+
+![Estat despres d'afegir una branca](../../img/add_branch.png)
+
+Per canviar a la nostra nova branca hauràs d'utilitzar
+`git checkout change_alice`. El que fa és simplement moure el _HEAD_
+a la branca (o «commit») que especifiqueu.
+
+> Com que normalment voldreu canviar a una branca
+> just després de crear-la, hi ha la còmoda opció `-b`
+> disponible per a l'ordre `checkout`, que us permet només
+> fer directament `checkout' una _nova_ branca,
+> de manera que no cal crear-la abans.
+
+> Per tant, per crear i canviar a la nostra branca `change_alice`,
+> també podríem haver cridat `git checkout -b change_alice`.
+
+![Estat després de canviar a la branca](../../img/checkout_branch.png)
+
