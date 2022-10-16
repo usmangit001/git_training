@@ -362,3 +362,75 @@ a la branca (o «commit») que especifiqueu.
 
 ![Estat després de canviar a la branca](../../img/checkout_branch.png)
 
+Veuràs que el vostre _Directori de Treball_ no ha canviat i el canvi que hem fet a `Alice.txt`
+encara no està relacionat amb la branca on estem. Ara podeu afegit `add` i cometre `commit` el canvis
+a `Alice.txt` tal com vam hem fet abans a _master_,
+que _prepararà_ (_stage_) (en aquest moment encara no està relacionat amb capp branca)
+i finalment _cometrà_ (_commit_) el canvi a la branca `change_alice`.
+
+Només hi ha una cosa que encara no pots fer.
+Intenteu publicar els canvis `git push` al _Repositori Remot_.
+
+Veureu l'error següent i, git que sempre està preparat per ajudar-vos,
+et proposarà un suggeriment sobre com resoldre el problema:
+
+```ShellSession
+fatal: The current branch change_alice has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin change_alice
+```
+
+Però no volem fer-ho a cegues. Estem ací per entendre què està passant realment.
+Aleshores, què són les _branques upstream_ i els _remots_?
+
+Recordes quan vam _clonar_ el _Repositori Remot_ abans?
+En aquell moment no només contenia aquest tutorial i `Alice.txt`,
+sinó que hi havien dues branques.
+
+La branca principal (_master_) on hem treballat i hem fet canvis, i el que vaig anomenar "tutorial_wip"
+en el qual estan tots els canvis que s'han fet en aquest tutorial.
+
+Quan es van copiar les coses del _Repositori Remot_ al vostre _Entorn de Desenvolupament_,
+uns quants passos adicionals van passar desapercebuts.
+
+Git va configurar el _remot_ (_remote_) del vostre _Repositori Local_
+perquè siga el _Repositori Remot_ que vam clonar
+i el va anomenar pel nom per defecte `origin`.
+
+> El vostre _Repositori Local_ pot fer un seguiment de diversos _remots_ i poden tindre noms diferents,
+> però en aquest tutorial ens quedarem amb `origin`.
+
+Després, es van copiar les dues branques remotes al vostre _Repositori Local_ i,
+finalment, es va fer `checkout` a la branca _master_.
+
+En fer-ho, passa un altre pas implícit. Quan feu `checkout` d'un nom de branca que tingui una coincidència exacta a les branques remotes,
+obtindreu una nova branca _local_ que està enllaçada a la branca _remota_. La branca _remota_ és la _upstream_ de la vostra _local_.
+
+Als diagrames anteriors podeu veure només les branques locals que teniu.
+Podeu veure aquesta llista de branques locals executant `git branch`.
+
+Si també voleu veure les branques _remotes_ que coneix el vostre _Repositori Local_,
+podeu utilitzar `git branch -a` per llistar-les.
+
+![Branques locals i remotes](../../img/branches.png)
+
+Ara podem cridat al suggerit `git push --set-upstream origin change_alice`, i publicar (`push`)
+els canvis a la nostra branca a un nou _remot_ (_remote_). Això crearà una branca `change_alice`
+al _Repositori Remot_ i establirà la nostra branca _local_ `change_alice` per fer un seguiment
+d'aquesta nova branca.
+
+> Hi ha una altra opció si realment volem que la nostra branca local
+> faça un seguiment d'alguna branca que ja existeix al _Repositori Remot_.
+> Potser un company ja ha publicat alguns canvis, mentre estàvem treballant
+> en algun tema relacionat a la nostra branca local, i ens agradaria integrar els dos.
+> Aleshores, només podríem configurar el _upstream_ per a la nostra branca `change_alice`
+> a un nou _remote_ utilitzant `git branch --set-upstream-to=origin/change_alice`
+> i des d'allà per fer un seguiment de la branca _remote_.
+
+Després de fer-ho, mireu el vostre _Repositori Remot_ a GitHub. La vostra branca estarà allà,
+preparada perquè altres persones la vegen i treballen.
+
+Prompte veurem com podeu incorporar els canvis d'altres persones al vostre _Entorn de Desenvolupament_,
+però primer treballarem un poc més amb les branques, per introduir tots els conceptes que també entren
+en joc quan obtenim coses noves del _Repositori Remot_.
