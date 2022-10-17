@@ -30,7 +30,7 @@ Comencem!
   - [Branques](#branques)
   - [Fusionar (merge)](#fusionar)
     - [Fusió directa](#fusió-directa)
-    - [Fusió de diferents branques](#fusió-de-diferents-branques)
+    - [Fusió de branques divergents](#fusió-de-diferents-branques)
     - [Resolució de conflictes](#resolució-de-conflictes)
   - [Rebase](#rebase)
     - [Resolució de conflictes](#resolució-de-conflictes-1)
@@ -434,3 +434,141 @@ preparada perquè altres persones la vegen i treballen.
 Prompte veurem com podeu incorporar els canvis d'altres persones al vostre _Entorn de Desenvolupament_,
 però primer treballarem un poc més amb les branques, per introduir tots els conceptes que també entren
 en joc quan obtenim coses noves del _Repositori Remot_.
+
+## Fusionar (merge)
+
+Tu i totes les persones que col·laboren en un repositori estareu
+treballant generalment en branques, per tant, hem de veure com podem incorporar canvis realitzats
+d'una branca a l'altra a una altra: _fusionant-les_ (merge).
+
+<!-- SENSE CONFLICTE -->
+Acabem de canviar `Alice.txt` a la branca `change_alice`,
+i diria que estem contents amb els canvis que hem fet.
+
+Si aneu a `git checkout master`, el `commit` que hem fet a l'altra branca no existirà.
+Per incorporar els canvis a la branca principal _master_, hem de `fusionar` (`merge`)
+la branca `change_alice` a _master_.
+
+Tingues en compte que sempre "fusioneu" una branca concreta a la branca que esteu actualment.
+
+### Fusió directa
+
+Com ja estem en la branca _master_ `git checkout master`, ara podem fusionar la branca `git merge change_alice`.
+
+Com que no hi ha altres canvis _conflictius_ a `Alice.txt`, i no hem canviat res a _master_,
+l'operació es posrarà a terme sense cap problema en el que s'anomena una _fusió directa_ (_fast forward merge_).
+
+Podeu veure en les figura següent que això només vol dir que el punter _master_
+simplement es pot avançar fins on ja és el _change_alice_.
+
+El primer diagrama mostra l'estat abans de la nostra fusió `merge`,
+_master_ encara es troba en el commit que era originalment,
+i a l'altra branca hem fet un commit més.
+
+![Abans de la fusió directa](../../img/before_ff_merge.png)
+
+El segon diagrama mostra què ha canviat amb el `merge`.
+
+![Després de la fusió directa](../../img/ff_merge.png)
+
+### Fusió de branques divergents
+
+Anem a provar una cosa més complexa.
+
+Afegeix text en una línia nova a `Bob.txt` a _master_ i comet els canvis (`add` i `commit`).
+
+Després, torna a la branca `git checkout change_alice`, modifica `Alice.txt` i comet els canvis.
+
+A la figura següent podeu veure com es veu ara el nostre historial de commits.
+Tant `master` com `change_alice` han segut modificats a partir del mateix commit,
+però des d'aleshores han _divergit_ i cadascú té el seu propi commit addicional.
+
+![Commits divergents](../../img/branches_diverge.png)
+
+Si ara tornes a la branca principal (`git checkout master`)
+i feu `git merge change_alice`, no és possible una fusió directa.
+En compte d'això, s'obrirà el vostre editor de text favorit i et permetrà
+canviar el missatge del `merge commit` que git està a punt de fer per tal
+de tornar a unir les dues branques. Pots deixar  el missatge predeterminat ara mateix.
+El diagrama següent mostra l'estat del nostre historial de git després del `merge`.
+
+![Fusionant branques](../../img/merge.png)
+
+El nou commit introdueix els canvis que hem fet a la branca `change_alice` a la branca `master`.
+
+Com recordareu abans, les revisions a git no només søn una instantània dels vostres fitxers,
+sinó que també contenen informació sobre d'on provenen. Cada "commit" té un o més commits pare.
+El nostre nou commit `merge` té tant l'últim commit de _master_ com el commit que vam fer a l'altra branca com a pares.
+
+### Resolució de conflictes
+
+Fins ara, els nostres canvis no s'han interferit els uns amb els altres.
+
+Anem a introduir un _conflicte_ i després el _resoldrem_.
+
+Creeu i aneu `checkout` a auna branca nova. Ja sabeu com, però pots provar d'utilitzar
+`git checkout -b` per facilitar aquesta tasca.
+He anomenat la meua branca `bobby_branch`.
+
+A la branca farem un canvi a `Bob.txt`.
+La primera línia hauria de ser `Hi!! I'm Bob. I'm new here.`.
+Canvia-ho a `Hi!! I'm Bobby. I'm new here.`.
+
+Prepara i comet el teu canvi (`add` i `commit`), i torna a la branca _master_ (`checkout`).
+En la brnaca _master_, canviarem aquesta mateixa línia per
+`Hi!! I'm Bob. I've been here for a while now.` i afegeix aquest canvi.
+
+Ara és el moment de fusionar (`merge`) la nova branca a _master_.
+Quan ho facees, voràs el missatge següent:
+
+```ShellSession
+Auto-merging Bob.txt
+CONFLICT (content): Merge conflict in Bob.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+La mateixa línia s'ha canviat a les dues branques
+i git no pot gestionar-ho per si mateix.
+
+Si executeu `git status`, obtindreu totes les instruccions útils habituals sobre com continuar.
+
+Primer hem de resoldre el conflicte a mà.
+
+> Per a un conflicte fàcil com aquest, el vostre editor de text favorit anirà bé.
+> Per combinar fitxers grans amb molts canvis, una eina més potent et farà la vida molt més fàcil,
+> i suposaria que el teu IDE favorit inclou eines de control de versions i una bona visió per combinar.
+
+Si obriu `Bob.txt` voràs alguna cosa pareguda a acò:
+(he truncat el que podríem haver posat a la segona línia abans):
+
+```Diff
+<<<<<<< HEAD
+Hi! I'm Bob. I've been here for a while now.
+=======
+Hi! I'm Bobby. I'm new here.
+>>>>>>> bobby_branch
+[... el que hages posat en la linia 2]
+```
+
+A la part superior veieu què ha canviat a `Bob.txt` a l'actual HEAD,
+a continuació veureu què ha canviat a la branca en què estem fusionant.
+
+Per resoldre el conflicte a mà, només haureu d'assegurar-vos que acabeu amb un contingut
+raonable i sense les línies especials que git ha introduït al fitxer.
+
+Així que seguiu endavant i canvieu el fitxer a alguna cosa aixina:
+
+```
+Hi! I'm Bobby. I've been here for a while now.
+[...]
+```
+
+A partir d'ací, continuem de la mateixa manera com el que faríem per qualsevol canvi.
+Preparem el canvis amb `add Bob.txt`, i després els afegim amb `commit`.
+
+Aquest últim commit que hem fet manualment és el mateix que ha fet git abans
+quan no hi havia cap conflicte.
+És el _merge commit_ que sempre està present quan es fusionen diferents canvis.
+
+Si alguna es trobeu enmig de la resolució de conflictes
+i voleu cancel·lar-la, podeu avortar la fusió executant `git merge --abort`.
