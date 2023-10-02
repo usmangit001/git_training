@@ -32,7 +32,7 @@ Comencem!
     - [Fusió directa](#fusió-directa)
     - [Fusió de branques divergents](#fusió-de-branques-divergents)
     - [Resolució de conflictes](#resolució-de-conflictes)
-  - [Rebase](#rebase)
+  - [Canviar la base](#rebase)
     - [Resolució de conflictes](#resolució-de-conflictes-1)
   - [Actualització de l'_Entorn de Desenvolupament_ amb canvis remots](#actualitzacio-de-lentorn-de-desenvolupament-amb-canvis-remots)
    - [Obtindre canvis (fetch)](#obtindre-canvis)
@@ -354,7 +354,7 @@ a la branca (o «commit») que especifiqueu.
 > Com que normalment voldreu canviar a una branca
 > just després de crear-la, hi ha la còmoda opció `-b`
 > disponible per a l'ordre `checkout`, que us permet només
-> fer directament `checkout' una _nova_ branca,
+> fer directament `checkout` una _nova_ branca,
 > de manera que no cal crear-la abans.
 
 > Per tant, per crear i canviar a la nostra branca `change_alice`,
@@ -572,3 +572,81 @@ quan no hi havia cap conflicte.
 
 Si alguna es trobeu enmig de la resolució de conflictes
 i voleu cancel·lar-la, podeu avortar la fusió executant `git merge --abort`.
+
+
+## Canviar la base
+
+Git té una altra manera neta d'integrar els canvis entre dues branques, que s'anomena `canvi de base` o _`Rebase`_ en anglés.
+
+Recordeu que una branca sempre es basa en una altra. Quan es crea una branca, sempre divergeixes des d'algun lloc.
+
+En el nostre exemple de fusió senzill, vam ramificar des de _master_ en un commit específic, després vam fer alguns canvis tant a _master_ com a la branca `change_alice`.
+
+Quan una branca divergeix de la que es basa i voleu tornar a integrar els últims canvis a la vostra branca actual, `rebase` ofereix una manera més neta de fer-ho que un `merge`.
+
+Com hem vist, un `merge` introdueix un _merge commit_, en el qual les dues històries es tornen a integrar.
+
+Vist senzillament, el canvi de base només canvia el punt de l'historial (el _commit_) en què es basa la vostra branca.
+
+Per provar-ho, primer tornem a revisar la branca _master_ i, a continuació, creem una nova branca basada en ella.
+Jo he anomenat a la nova branca `add_patrick` i he afegit un nou fitxer `Patrick.txt` i vaig confirmar els canvis (_commit_) amb el missatge 'Afegeix Patrick'.
+
+Després d'haver confirmat els canvis (_commit_), torneu (`checkout`) a _master_, feu un canvi i confirmeu-lo. He afegit més text a "Alice.txt".
+
+Com en el nostre exemple de fusió, la història d'aquestes dues branques divergeix en un avantpassat comú, com podeu veure al diagrama següent.
+
+![Historial abans d'un canvi de base](../../img/before_rebase.png)
+
+Ara tornem a la nova branca mitjançant `checkout add_patrick` i incorporem el canvi que s'ha fet a _master_ a la branca en què a la que estem treballant!
+
+Quan fem `git rebase master`, tornem a basar la nostra branca `add_patrick` en l'estat actual de la branca _master_, es a dir, hem canviat
+la base de la branca al estat actual de la branca _master_.
+
+L'eixida d'aquesta ordre ens dóna una bona pista del que hi passa:
+
+```ShellSession
+First, rewinding head to replay your work on top of it...
+Applying: Add Patrick
+```
+
+Recordem que _HEAD_ és el punter al _commit_ actual en què ens trobem al nostre _entorn de desenvolupament_.
+
+En un principi apunta al mateix lloc que `add_patrick` abans que comence el canvi del base. Per fer el canvi, primer es torna a l'ancestre comú, abans de passar el punter _HEAD_ actual a la branca en què volem tornar a basar la nostra.
+
+Per tant, _HEAD_ passa del _commit_ _0cfc1d2_ al _commit_ _7639f4b_ on apunta _master_.
+Aleshores, el canvi de base aplica cada commit que hem fet a la nostra branca `add_patrick` a aquest punt.
+
+Per ser més exactes, el que fa _git_ després de tornar a moure _HEAD_ a l'ancestre comú de les branques, és emmagatzemar parts de cada _commit_ que s'han fet a la branca (la "diferència" o `diff` dels canvis i el text de confirmació, l'autor, etc. .).
+
+Després, fa un `checkout` de l'últim _commit_ de la branca en què on volem canviar la base, i després aplica cadascun dels canvis emmagatzemats __com un nou commit__.
+
+Per tant, en la nostra visió simplificada original, suposaríem que després del `rebase`, el _commit _0cfc1d2_ ja no apunta cap a l'ancestre comú en la seva història, sinó que apunta a _master_.
+Però la realitat és què el commit _0cfc1d2_ ha desaparegut i la branca `add_patrick` comença amb un nou _commit_ _0ccaba8_, que té com a ancestre l'últim commit de _master_.
+Pareix que el nostre `add_patrick` es basava en el _master_ actual no en una versió anterior, però en fer-ho vam tornar a escriure la història de la branca.
+Al final d'aquest tutorial aprendrem un poc més sobre com tornar a escriure l'història i quan és apropiat i inadequat fer-ho.
+
+![Història després de rebase](../../img/rebase.png)
+
+`Rebase` és una eina increïblement poderosa quan esteu treballant en la vostra pròpia branca de desenvolupament que es basa en una branca compartida, com per exemple _master_.
+
+Utilitzant el canvi de base podeu assegurar-vos que integreu els canvis d'una manera contínua que fan altres persones i que s'incorporen a _master_,
+alhora que manteniu un historial lineal net que us permeta fer una fusió directa (`fast-forwart merge`) quan siga el moment d'incorporar el vostre treball a la branca compartida.
+
+Mantindre un historial lineal també fa que llegir o mirar (proveu `git log --graph` o feu una ullada a la vista de branques de _GitHub_ o _GitLab_)
+l'història o els logs siga molt més útil i ordenada, en canvi de tindre un historial ple de _merge commits_, normalment només fent servir el text predeterminat.
+
+### Resolució de conflictes
+De la mateixa manera que per a una fusió `merge`, podeu tindre conflictes si vos trobeu amb dos _commits_ que modifiquen les mateixes parts d'un fitxer.
+
+Tanmateix, quan vos trobeu amb un conflicte durant un canvi de base `rebase`, no es soluciona en un _merge commit_ addicional, sinó que simplement podeu resoldre'l en el commit que s'està aplicant actualment.
+De nou, basant els vostres canvis directament en l'estat actual de la branca original.
+
+En realitat, resoldre conflictes en un `rebase` és molt semblant a com ho faries per a un `merge`,
+així que consulta aquesta secció si ja no recordes com fer-ho.
+
+L'única diferència és que, com que no esteu introduint un _merge commit_, no cal que feu un nou _commit_.
+Simplement afegiu (`add`) els canvis a l'_Àrea de preparació_ i després continueu amb el canvi de base (`git rebase --continue`).
+El conflicte es resoldrà en el commit que s'acaba d'aplicar.
+
+De la mateixa manera que quan es fa una fusicó, sempre podeu parar i descartar tot el que heu fet fins el moment
+amb `git rebase --abort`.

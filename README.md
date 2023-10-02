@@ -296,7 +296,7 @@ In the diagrams earlier you can see just the local branches you have. You can se
 
 If you want to also see the _remote_ branches your _Local Repository_ knows, you can use `git branch -a` to list all of them.
 
-![Remote and local branches`](img/branches.png)
+![Remote and local branches](img/branches.png)
 
 Now we can call the suggested `git push --set-upstream origin change_alice`, and `push` the changes on our branch to a new _remote_. This will create a `change_alice` branch on the _Remote Repository_ and set our _local_ `change_alice` to track that new branch. 
 
