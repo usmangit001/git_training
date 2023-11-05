@@ -1,1 +1,2 @@
 Hello! This is Bob. I'm new here :).
+This is a change made in master branch.
