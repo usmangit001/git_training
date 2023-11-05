@@ -1,3 +1,4 @@
 Hello! This is Bob. I'm new here :).
 This is a change made in master branch.
 New change made in bobby_branch for conflict resolving.
+This change in for rebasing.
